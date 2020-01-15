@@ -2,11 +2,12 @@ import React,{Component} from 'react';
 import './Home.css';
 import Header from '../../common/header/Header';
 import { withStyles } from '@material-ui/core/styles';
-import movieData from '../../common/movieData';
 import moviesData from '../../common/movieData';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Card from '@material-ui/core/Card';
+import { CardContent, Typography, FormControl, Input, InputLabel } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -27,11 +28,31 @@ const styles = theme => ({
     gridListMain: {
         transform: 'translateZ(0)',
         cursor: 'pointer'
-    }
+    },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 240,
+     },
+     title: {
+        color: theme.palette.primary.light,
+     }
  });
 
 
  class Home extends Component{
+
+    constructor() {
+        super();
+        this.state = {
+            movieName: ""
+        };
+    }
+
+    movieNameChangeHandler = event => {
+        this.setState({movieName: event.target.value});
+        console.log(this.state.movieName);
+    }
+
     render(){
         const { classes } = this.props;
         return(
@@ -65,6 +86,19 @@ const styles = theme => ({
                         </GridList>
                     </div>
                     <div className="right">
+                        <Card>
+                            <CardContent>
+                                <FormControl className={classes.formControl}>
+                                <Typography className={classes.title} color="textSecondary">
+                                    FIND MOVIES BY:
+                                </Typography>
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="movieName"> Movie Name </InputLabel>
+                                    <Input id="movieName" onChange={this.movieNameChangeHandler}></Input>
+                                </FormControl>
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
             </div>
