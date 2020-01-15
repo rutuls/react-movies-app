@@ -7,7 +7,8 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Card from '@material-ui/core/Card';
-import { CardContent, Typography, FormControl, Input, InputLabel } from '@material-ui/core';
+import { CardContent, Typography, FormControl, Input, InputLabel, Select, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
+import genres from '../../common/genres';
 
 const styles = theme => ({
     root: {
@@ -44,13 +45,19 @@ const styles = theme => ({
     constructor() {
         super();
         this.state = {
-            movieName: ""
+            movieName: "",
+            genres:[]
         };
     }
 
     movieNameChangeHandler = event => {
         this.setState({movieName: event.target.value});
         console.log(this.state.movieName);
+    }
+
+    genreSelectHandler = event => {
+        this.setState({genres: event.target.value});
+        console.log(this.state.genres);
     }
 
     render(){
@@ -96,6 +103,24 @@ const styles = theme => ({
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="movieName"> Movie Name </InputLabel>
                                     <Input id="movieName" onChange={this.movieNameChangeHandler}></Input>
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="select-multiple-choice"> Genres </InputLabel>
+                                    <Select
+                                    multiple
+                                    input={<Input id="select-multiple-choice"></Input>}
+                                    renderValue={selected => selected.join(', ')}
+                                    value={this.state.genres}
+                                    onChange={this.genreSelectHandler}>
+                                        <MenuItem value="0">None
+                                        </MenuItem>
+                                        {genres.map(genre => (
+                                            <MenuItem key = {genre.id} value={genre.name}>
+                                                <Checkbox checked={this.state.genres.indexOf(genre.name) > -1}></Checkbox>
+                                                <ListItemText primary={genre.name}></ListItemText>
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
                                 </FormControl>
                             </CardContent>
                         </Card>
