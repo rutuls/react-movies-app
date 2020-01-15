@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import { CardContent, Typography, FormControl, Input, InputLabel, Select, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
 import genres from '../../common/genres';
 import artists from '../../common/artists';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
     root: {
@@ -145,6 +146,22 @@ const styles = theme => ({
                                             </MenuItem>
                                         ))}
                                     </Select>
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                    id="releaseStartDate"
+                                    label="Release Start Date"
+                                    type="date"
+                                    InputLabelProps={{shrink:true}}>
+                                    </TextField>
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                    id="releaseEndDate"
+                                    label="Release End Date"
+                                    type="date"
+                                    InputLabelProps={{shrink:true}}>
+                                    </TextField>
                                 </FormControl>
                             </CardContent>
                         </Card>
