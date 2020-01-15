@@ -7,7 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Card from '@material-ui/core/Card';
-import { CardContent, Typography, FormControl, Input, InputLabel, Select, MenuItem, Checkbox, ListItemText } from '@material-ui/core';
+import { CardContent, Typography, FormControl, Input, InputLabel, Select, MenuItem, Checkbox, ListItemText, Button } from '@material-ui/core';
 import genres from '../../common/genres';
 import artists from '../../common/artists';
 import TextField from '@material-ui/core/TextField';
@@ -152,6 +152,7 @@ const styles = theme => ({
                                     id="releaseStartDate"
                                     label="Release Start Date"
                                     type="date"
+                                    defaultValue=""
                                     InputLabelProps={{shrink:true}}>
                                     </TextField>
                                 </FormControl>
@@ -160,8 +161,12 @@ const styles = theme => ({
                                     id="releaseEndDate"
                                     label="Release End Date"
                                     type="date"
+                                    defaultValue=""
                                     InputLabelProps={{shrink:true}}>
                                     </TextField>
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                <Button variant="contained" color="primary">Apply</Button>
                                 </FormControl>
                             </CardContent>
                         </Card>
