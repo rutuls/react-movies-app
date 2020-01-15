@@ -11,6 +11,8 @@ import { CardContent, Typography, FormControl, Input, InputLabel, Select, MenuIt
 import genres from '../../common/genres';
 import artists from '../../common/artists';
 import TextField from '@material-ui/core/TextField';
+import Details from '../../screens/details/Details';
+import ReactDOM from 'react-dom';
 
 const styles = theme => ({
     root: {
@@ -67,6 +69,11 @@ const styles = theme => ({
         this.setState({artists: event.target.value});
     }
 
+    clickMovieGridItemHandler = (movieId) => {
+        console.log(movieId)
+        ReactDOM.render(<Details movieId={movieId}/>, document.getElementById('root'));
+    }
+
     render(){
         const { classes } = this.props;
         return(
@@ -89,7 +96,7 @@ const styles = theme => ({
                     <div className="left">
                         <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                             {moviesData.map(movie => (
-                                <GridListTile className="released-movie-grid-item" key={"grid" + movie.id}>
+                                <GridListTile className="released-movie-grid-item" key={"grid" + movie.id} onClick={this.clickMovieGridItemHandler.bind(this,movie.id)}>
                                     <img src={movie.poster_url} className="movie-poster" alt={movie.title} />
                                     <GridListTileBar
                                         title={movie.title}
