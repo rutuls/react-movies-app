@@ -2,16 +2,45 @@ import React, { Component } from 'react';
 import Header from '../../common/header/Header';
 import moviesData from '../../common/movieData';
 import './Details.css'
-import { Typography } from '@material-ui/core';
+import { Typography, GridList, GridListTile, GridListTileBar } from '@material-ui/core';
 import ReactDOM from 'react-dom';
 import Home from '../home/Home';
 import YouTube from 'react-youtube';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+
 
 class Details extends Component {
     constructor() {
         super();
         this.state = {
-            movie: {}
+            movie: {},
+            starIcons: [
+                {
+                   id: 1,
+                   stateId: "star1",
+                   color: "black"
+                },
+                {
+                   id: 2,
+                   stateId: "star2",
+                   color: "black"
+                },
+                {
+                   id: 3,
+                   stateId: "star3",
+                   color: "black"
+                },
+                {
+                   id: 4,
+                   stateId: "star4",
+                   color: "black"
+                },
+                {
+                   id: 5,
+                   stateId: "star5",
+                   color: "black"
+                }
+             ]
         }
     }
 
@@ -25,6 +54,20 @@ class Details extends Component {
 
     backtohomeHandler = () => {
         ReactDOM.render(<Home />, document.getElementById("root"));
+    }
+
+    starClickHandler = (id) => {
+        let staricons = [];
+
+        for(let star of this.state.starIcons) {
+            if(star.id<=id) {
+                star.color="yellow";
+            } else {
+                star.color="black";
+            }
+            staricons.push(star);
+        }
+        this.setState({starIcons:staricons});
     }
 
     render() {
@@ -66,7 +109,26 @@ class Details extends Component {
                             ></YouTube>
                         </div>
                     </div>
-                    <div className="rightDetails"></div>
+                    <div className="rightDetails">
+                        <Typography>
+                            <span className="bold">Rate this movie:</span>
+                        </Typography>
+                        {this.state.starIcons.map(staricon => (
+                            <StarBorderIcon className={staricon.color} key={"star" + staricon.id} onClick={this.starClickHandler.bind(this,staricon.id)}></StarBorderIcon>
+                        ))}
+                        <Typography>
+                            <span className="bold">Artists:</span>
+                        </Typography>
+                        <GridList cols={2}>
+                            {movie.artists.map(artist => (
+                                <GridListTile><img src={artist.profile_url}></img>
+                                <a href={artist.wiki_url} target="_blank">
+                                <GridListTileBar title={artist.first_name + " " + artist.last_name}></GridListTileBar>
+                                </a>
+                                </GridListTile>
+                            ))}
+                        </GridList>
+                    </div>
                 </div>
             </div>
         );
