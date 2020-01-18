@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
 import Home from '../home/Home';
-import { Typography, MenuItem } from '@material-ui/core';
+import { Typography, MenuItem, Button } from '@material-ui/core';
 import '../bookshow/BookShow.css';
 import language from '../../common/language';
 import location from '../../common/location';
@@ -24,7 +24,10 @@ class BookShow extends Component {
             location:"",
             language:"",
             showdate:"",
-            showtime:""
+            showtime:"",
+            tickets:0,
+            unitprice:500,
+            availabletickets:20
         }
     }
 
@@ -48,6 +51,10 @@ class BookShow extends Component {
         this.setState({showtime: event.target.value});
     }
 
+    ticketChangeHandler = event => {
+        this.setState({tickets:event.target.value});
+    }
+
 
     render() {
         return (
@@ -64,7 +71,7 @@ class BookShow extends Component {
                     <Typography variant="headline" component="h2">
                         BOOK SHOW
                     </Typography><br/>
-                    <FormControl className="formControl">
+                    <FormControl required className="formControl">
                         <InputLabel htmlFor="location"> Choose Location: </InputLabel>
                         <Select value={this.state.location} onChange={this.locationChangeHandler}>
                             {
@@ -78,7 +85,7 @@ class BookShow extends Component {
                         </Select>
                     </FormControl><br/><br/>
 
-                    <FormControl className="formControl">
+                    <FormControl required className="formControl">
                         <InputLabel htmlFor="language"> Choose Language: </InputLabel>
                         <Select value={this.state.language} onChange={this.languageChangeHandler}>
                             {
@@ -92,7 +99,7 @@ class BookShow extends Component {
                         </Select>
                     </FormControl><br/><br/>
 
-                    <FormControl className="formControl">
+                    <FormControl required className="formControl">
                         <InputLabel htmlFor="showdate"> Choose Show Date: </InputLabel>
                         <Select value={this.state.showdate} onChange={this.showDateChangeHandler}>
                             {
@@ -106,7 +113,7 @@ class BookShow extends Component {
                         </Select>
                     </FormControl><br/><br/>
 
-                    <FormControl className="formControl">
+                    <FormControl required className="formControl">
                         <InputLabel htmlFor="showtime"> Choose Show Time: </InputLabel>
                         <Select value={this.state.showtime} onChange={this.showTimeChangeHandler}>
                             {
@@ -119,6 +126,22 @@ class BookShow extends Component {
 
                         </Select>
                     </FormControl><br/><br/>
+                    <FormControl required className="formControl">
+                        <InputLabel htmlFor="tickets"> Tickets ({this.state.availabletickets} available): </InputLabel>
+                        <Input type="text" value={this.state.tickets==0 ? "" : this.state.tickets} onChange={this.ticketChangeHandler}></Input>
+                    </FormControl><br/><br/>
+
+                    <Typography>
+                        Unit Price: Rs. {this.state.unitprice}
+                    </Typography><br/>
+
+                    <Typography>
+                        Ticket Price: Rs. {this.state.unitprice * this.state.tickets}
+                    </Typography><br/><br/>
+
+                    <Button variant="contained" color="primary" onClick={this.bookShowButtonHandler}>
+                        BOOK SHOW
+                    </Button>
                     </CardContent>
                 </Card>
 
